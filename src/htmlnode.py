@@ -13,9 +13,11 @@ class HTMLNode():
         self.props = props
 
     def to_html(self):
+        '''Will be used by child classes'''
         raise NotImplementedError("to_html method not implemented")
     
     def props_to_html(self) -> str:
+        '''Returns a formatted string representing the HTML attributes of the node'''
         if self.props == None or self.props == {}:
             return ""
         prop_string = ""
