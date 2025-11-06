@@ -26,7 +26,7 @@ class HTMLNode():
         return prop_string
 
     def __repr__(self):
-        return f'HTMLNode: {self.tag}, {self.value}, {self.children}, {self.props}'
+        return f'HTMLNode: {self.tag}, {self.value}, children: {self.children}, {self.props}'
     
     def __eq__(self, other):
         return (
@@ -39,13 +39,14 @@ class HTMLNode():
 class LeafNode(HTMLNode):
     def __init__(
                 self, 
-                tag: str, 
-                value: str, 
+                tag: str | None,
+                value: str | None,
                 props: dict | None = None
     ):
         super().__init__(tag, value, None, props)
 
-    def to_html(self):
+    def to_html(self) -> str: 
+        '''Function for formatting text'''
         if self.value == None:
             raise ValueError("All leaf nodes must have a value")
         if self.tag == None:
@@ -54,3 +55,32 @@ class LeafNode(HTMLNode):
     
     def __repr__(self):
         return f"LeafNode({self.tag}, {self.value}, {self.props})"
+    
+    def __eq__(self, other):
+        return super().__eq__(other)
+    
+class ParentNode(HTMLNode):
+    def __init__(
+            self, 
+            tag: str | None,
+            children: list[HTMLNode] | None,
+            props: dict | None = None
+    ):
+        super().__init__(tag, None, children, props)
+    
+    def to_html(self) -> str:
+        '''Function for formatting stored child (leaf) nodes'''
+        if self.tag == None:
+            raise ValueError("All parent nodes must have a tag for proper formatting")
+        if self.children == None:
+            raise ValueError("All parent nodes must have children")
+        leaf_nodes = ""
+        for node in self.children:
+            leaf_nodes += node.to_html()
+        return f"<{self.tag}{self.props_to_html()}>{leaf_nodes}</{self.tag}>"
+    
+    def __repr__(self):
+        return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
+    
+    def __eq__(self, other):
+        return super().__eq__(other)
