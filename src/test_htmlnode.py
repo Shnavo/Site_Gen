@@ -5,10 +5,10 @@ from htmlnode import *
 
 class TestHTMLNode(unittest.TestCase):
     def test_eq(self):
-        node = HTMLNode("p", "This is a test node", props = {"href":"https://www.google.com"})
-        node2 = HTMLNode("p", "This is a test node", props = {"href":"https://www.google.com"})
+        node = HTMLNode("p", "This is a test node", props={"href": "https://www.google.com"})
+        node2 = HTMLNode("p", "This is a test node", props={"href": "https://www.google.com"})
         node3 = HTMLNode("a1", "This is an test node", [node, node2])
-        node4 = HTMLNode("a", "This is a test node", props = {"target": "_blank"})
+        node4 = HTMLNode("a", "This is a test node", props={"target": "_blank"})
         self.assertEqual(node, node2)
         self.assertNotEqual(node, node3)
         self.assertEqual(node.value, node4.value)
@@ -63,8 +63,6 @@ class TestHTMLNode(unittest.TestCase):
             "<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>",
         )
         self.assertEqual(node, node2)
-
-
 
 
 if __name__ == "__main__":

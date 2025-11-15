@@ -1,6 +1,7 @@
 import unittest
 from splitter import *
 
+
 class Testsplitterfunction(unittest.TestCase):
     def test_function(self):
         code_node = TextNode("This is text with a `code block` word", TextType.TEXT)
@@ -10,33 +11,32 @@ class Testsplitterfunction(unittest.TestCase):
         italics_nodes = split_nodes_delimiter([italics_node], "_", TextType.ITALIC)
         bolded_nodes = split_nodes_delimiter([bolded_node], "*", TextType.BOLD)
         self.assertEqual(
-            code_nodes, 
+            code_nodes,
             [
                 TextNode("This is text with a ", TextType.TEXT),
                 TextNode("code block", TextType.CODE),
                 TextNode(" word", TextType.TEXT),
-            ]
+            ],
         )
         self.assertEqual(
-            italics_nodes, 
+            italics_nodes,
             [
                 TextNode("This is text with an ", TextType.TEXT),
                 TextNode("italicized", TextType.ITALIC),
                 TextNode(" word", TextType.TEXT),
-            ]
+            ],
         )
         self.assertEqual(
-            bolded_nodes, 
+            bolded_nodes,
             [
                 TextNode("This is text with a ", TextType.TEXT),
                 TextNode("bolded", TextType.BOLD),
                 TextNode(" word", TextType.TEXT),
-            ]
+            ],
         )
+
     def test_delim_bold_multiword(self):
-        node = TextNode(
-            "This is text with a **bolded word** and **another**", TextType.TEXT
-        )
+        node = TextNode("This is text with a **bolded word** and **another**", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
         self.assertListEqual(
             [
@@ -47,6 +47,7 @@ class Testsplitterfunction(unittest.TestCase):
             ],
             new_nodes,
         )
+
     def test_delim_bold_and_italic(self):
         node = TextNode("**bold** and _italic_", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
@@ -59,6 +60,7 @@ class Testsplitterfunction(unittest.TestCase):
             ],
             new_nodes,
         )
+
 
 if __name__ == "__main__":
     unittest.main()
