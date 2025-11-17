@@ -1,7 +1,7 @@
 import unittest
 
 from textnode import TextNode, TextType, text_node_to_html_node
-from splitter import text_to_text_node
+from splitter import text_to_text_nodes
 
 
 class TestTextNode(unittest.TestCase):
@@ -29,7 +29,7 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.to_html(), '<a href="google.com">This is a link</a>')
 
     def test_text_to_textnodes(self):
-        nodes = text_to_text_node(
+        nodes = text_to_text_nodes(
             "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
         )
         self.assertEqual(

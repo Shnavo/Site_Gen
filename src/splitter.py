@@ -94,7 +94,7 @@ def extract_markdown_links(text: str) -> list[tuple]:
     return matches
 
 
-def text_to_text_node(text: str) -> list[TextNode]:
+def text_to_text_nodes(text: str) -> list[TextNode]:
     node = TextNode(text, TextType.TEXT)
     finished = [node]
     finished = split_nodes_delimiter(finished, "**", TextType.BOLD)
