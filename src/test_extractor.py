@@ -1,6 +1,6 @@
 import unittest
 
-from extractor import *
+from splitter import *
 
 
 class Testextractor(unittest.TestCase):
