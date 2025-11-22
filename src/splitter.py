@@ -1,4 +1,5 @@
-from textnode import TextNode, TextType
+from textnode import TextNode, TextType, text_node_to_html_node
+from htmlnode import ParentNode, LeafNode
 import re
 
 # upgrade later for nested elements
@@ -66,6 +67,7 @@ def split_nodes_link(old_nodes):
         if old_node.text_type != TextType.TEXT:
             new_nodes.append(old_node)
             continue
+
         original_text = old_node.text
         links = extract_markdown_links(original_text)
         if len(links) == 0:
@@ -103,3 +105,35 @@ def text_to_text_nodes(text: str) -> list[TextNode]:
     finished = split_nodes_image(finished)
     finished = split_nodes_link(finished)
     return finished
+
+def text_to_children(text: str) -> list[LeafNode]:
+    paragraph = newline_stripper(text)
+    text_children = text_to_text_nodes(paragraph)
+    html_children = []
+    for child in text_children:
+        html_children.append(text_node_to_html_node(child))
+    return html_children
+
+def newline_stripper(node: str) -> str:
+    stripped = node.split("\n")
+    node= " ".join(stripped)
+    return node
+
+def md_prefix_stripper(block: str):
+    # if block.startswith("#"):
+    return block.lstrip("# ")
+
+
+def heading_counter(text: str):
+    if text.startswith("# "):
+        return "h1"
+    if text.startswith("## "):
+        return "h2"
+    if text.startswith("### "):
+        return "h3"
+    if text.startswith("#### "):
+        return "h4"
+    if text.startswith("##### "):
+        return "h5"
+    if text.startswith("###### "):
+        return "h6"
