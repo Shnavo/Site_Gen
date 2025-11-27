@@ -105,35 +105,3 @@ def text_to_text_nodes(text: str) -> list[TextNode]:
     finished = split_nodes_image(finished)
     finished = split_nodes_link(finished)
     return finished
-
-def text_to_children(text: str) -> list[LeafNode]:
-    paragraph = newline_stripper(text)
-    text_children = text_to_text_nodes(paragraph)
-    html_children = []
-    for child in text_children:
-        html_children.append(text_node_to_html_node(child))
-    return html_children
-
-def newline_stripper(node: str) -> str:
-    stripped = node.split("\n")
-    node= " ".join(stripped)
-    return node
-
-def md_prefix_stripper(block: str):
-    # if block.startswith("#"):
-    return block.lstrip("# ")
-
-
-def heading_counter(text: str):
-    if text.startswith("# "):
-        return "h1"
-    if text.startswith("## "):
-        return "h2"
-    if text.startswith("### "):
-        return "h3"
-    if text.startswith("#### "):
-        return "h4"
-    if text.startswith("##### "):
-        return "h5"
-    if text.startswith("###### "):
-        return "h6"
