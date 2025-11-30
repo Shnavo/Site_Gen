@@ -16,7 +16,6 @@ def main():
     basepath = "/"
     if len(sys.argv) > 1:
         basepath = sys.argv[1]
- 
 
     print("Deleting public directory...")
     if os.path.exists(dir_path_public):
@@ -28,6 +27,5 @@ def main():
     print("Generating page...")
     generate_page_recursive(dir_path_content, template, dir_path_public, basepath)
 
-# print(sys.argv[1])
 
 main()
