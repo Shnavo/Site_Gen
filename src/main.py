@@ -13,7 +13,7 @@ template = "./template.html"
 
 def main():
 
-    basepath = "/"
+    basepath = "./"
     if len(sys.argv) < 1:
         basepath = sys.argv[1]
  
